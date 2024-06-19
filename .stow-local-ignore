@@ -1,0 +1,7 @@
+.*\.backup
+
+\.git
+\.gitignore
+
+^/README.*
+^/LICENSE.*

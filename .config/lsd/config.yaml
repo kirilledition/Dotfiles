@@ -1,0 +1,34 @@
+# == Color ==
+# This has various color options. (Will be expanded in the future.)
+color:
+  when: always
+  # How to colorize the output.
+  # When "classic" is set, this is set to "no-color".
+  # Possible values: default, custom
+  # When "custom" is set, lsd will look in the config directory for `colors.yaml`.
+  theme: default
+
+# == Icons ==
+icons:
+  when: never
+
+# == Sorting ==
+sorting:
+  # Specify what to sort by.
+  # Possible values: extension, name, time, size, version
+  column: name
+  # Whether to reverse the sorting.
+  # Possible values: false, true
+  reverse: false
+  # Whether to group directories together and where.
+  # When "classic" is set, this is set to "none".
+  # Possible values: first, last, none
+  dir-grouping: first
+
+# == Date ==
+# This specifies the date format for the date column. The freeform format
+# accepts a strftime like string.
+# When "classic" is set, this is set to "date".
+# Possible values: date, locale, relative, '+<date_format>'
+# `date_format` will be a `strftime` formatted value. e.g. `date: '+%d %b %y %X'` will give you a date like this: 17 Jun 21 20:14:55
+date: '+%d-%m-%y %H:%M'
