@@ -8,4 +8,4 @@
 [credential "https://gist.github.com"]
     helper = !gh auth git-credential
 [core]
-	editor = code --wait
+    editor = code --wait
