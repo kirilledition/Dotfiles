@@ -34,3 +34,9 @@ bat cache --build
 ```
 
 By following the setup instructions, you can quickly apply these configurations to your system, ensuring a consistent and personalized development environment. 🚀
+
+## Inspiration
+I took most of my configuration from following repositories:
+- [LilDojd dotfiles](https://github.com/LilDojd/dotfiles)
+- [Dreams Of Autonomy Zsh](https://github.com/dreamsofautonomy/zensh)
+- [Catppuccin color scheme](https://github.com/catppuccin)
