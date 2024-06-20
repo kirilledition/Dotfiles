@@ -1,10 +1,11 @@
+[user]
+    name = "Kirill Denisov"
+    email = "kirilledition@protonmail.com"
+[github]
+    user = kirilledition
 [credential "https://github.com"]
     helper = !gh auth git-credential
 [credential "https://gist.github.com"]
     helper = !gh auth git-credential
-[user]
-    name = "Kirill Denisov"
-    email = "kirilledition@protonmail.com"
-    github = kirilledition
-[github]
-    user = kirilledition
+[core]
+	editor = code --wait
