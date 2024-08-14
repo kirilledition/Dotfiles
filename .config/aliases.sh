@@ -1,8 +1,10 @@
 alias mkdir="mkdir -p"
-alias grep='grep --color=auto'
+alias grep="grep --color=auto"
+alias cp="cp -r"
+alias htop="btop"
 
 alias ls="lsd"
-alias ll="lsd -lh"
+alias l="lsd -la"
 alias tree="lsd --tree"
 
 alias cat="bat"
