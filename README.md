@@ -14,13 +14,13 @@ This repository contains my system configuration files, managed using GNU Stow f
 #### Mac
 To install the necessary packages, run:
 ```sh
-brew install stow starship zoxide fzf lsd bat gh
+brew install stow starship zoxide fzf lsd bat gh fastfetch
 ```
 
 #### Linux
 To install the necessary packages on Linux (using `paru`), run:
 ```sh
-paru -S stow starship zoxide fzf lsd bat gh
+paru -S stow starship zoxide fzf lsd bat gh fastfetch
 ```
 
 ## Enable Dotfiles
@@ -31,6 +31,7 @@ cd ~/Dotfiles
 stow .
 
 bat cache --build 
+sudo ln -s /home/$(whoami)/Dotfiles/.config/motd.sh /etc/profile.d/
 ```
 
 By following the setup instructions, you can quickly apply these configurations to your system, ensuring a consistent and personalized development environment. 🚀
