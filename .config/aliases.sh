@@ -47,6 +47,21 @@ backup() {
   fi
 }
 
+create() {
+  # Usage:
+    # create path/path2/file.toml
+    local file_path="$1"
+    local dir_path
+    dir_path=$(dirname "$file_path")
+
+    # Create directories if they don't exist
+    mkdir -p "$dir_path"
+
+    # Create the file
+    touch "$file_path"
+}
+
+
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/extract/extract.plugin.zsh
 extract() {
   setopt localoptions noautopushd
