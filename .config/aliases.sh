@@ -198,3 +198,49 @@ EOF
     fi
   done
 }
+
+ligatures() {
+# Function: ligatures
+# Description: Prints various ligatures in the terminal, arranged in groups
+#              for clear visibility. Arrows are split across two rows to
+#              maintain consistent width with other ligature groups.
+    echo "Hyphen and Equals:"
+    echo "-- --- == === != !== =!= =:= =/= <= >="
+
+    echo -e "\nAmpersands and Pluses:"
+    echo "&& &&& &= ++ +++ ***"
+
+    echo -e "\nSemicolons, Exclamation Marks, and Question Marks:"
+    echo ";; !! ?? ??? ?: ?. ?="
+
+    echo -e "\nColons and Comparison:"
+    echo "<: :< :> >: <:< <> <<< >>> << >>"
+
+    echo -e "\nPipes:"
+    echo "|| -| _|_ |- ||- |= ||="
+
+    echo -e "\nHashes and Parentheses:"
+    echo "## ### #### #{ #[ ]# #( #? #_ #_( #: #! #= ^="
+
+    echo -e "\nDollar Signs and Asterisks:"
+    echo "<$> <$ $> <+> <+ +> <*> <* *> </ </> />"
+
+    echo -e "\nArrows:"
+    echo "<!-- <#-- --> -> ->> <<- <- <=< =<< <<= <== <=> <==> ==>"
+    echo "=> =>> >=> >>= >>- >- -< -<< >-> <-< <-| <=| |=> |-> <->"
+
+    echo -e "\nTildes:"
+    echo "<<~ <~~ <~ <~> ~~ ~~> ~> ~- -~ ~@"
+
+    echo -e "\nBrackets:"
+    echo "[||] |] [| |} {| [< >] |> <| ||> <|| |||> <||| <|>"
+
+    echo -e "\nDots and Colons:"
+    echo "... .. .= ..< .? :: ::: := ::= :? :?>"
+
+    echo -e "\nSlashes:"
+    echo "// /// /* */ /= //= /=="
+
+    echo -e "\nAt Symbol and Underscores:"
+    echo "@_ __ ??? ;;;"
+}
