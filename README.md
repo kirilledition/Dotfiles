@@ -31,6 +31,7 @@ cd ~/Dotfiles
 stow .
 
 bat cache --build 
+fast-theme XDG:catppuccin-mocha
 
 sudo ln -s /home/$(whoami)/Dotfiles/system/earlyoom /etc/default/earlyoom
 sudo ln -s /home/$(whoami)/Dotfiles/system/motd.sh /etc/profile.d/
