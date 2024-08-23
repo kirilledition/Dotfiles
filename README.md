@@ -34,6 +34,8 @@ bat cache --build
 
 sudo ln -s /home/$(whoami)/Dotfiles/system/earlyoom /etc/default/earlyoom
 sudo ln -s /home/$(whoami)/Dotfiles/system/motd.sh /etc/profile.d/
+sudo ln -s /home/$(whoami)/Dotfiles/system/pacman.conf /etc/pacman.conf
+sudo ln -s /home/$(whoami)/Dotfiles/system/makepkg.conf /etc/makepkg.conf
 ```
 
 By following the setup instructions, you can quickly apply these configurations to your system, ensuring a consistent and personalized development environment. 🚀
