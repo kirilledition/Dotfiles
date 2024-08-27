@@ -1,13 +1,13 @@
 alias mkdir="mkdir -p"
 alias grep="grep --color=auto"
 alias cp="cp -r"
-alias htop="btop"
 
 alias ls="lsd"
 alias l="lsd -la"
 alias tree="lsd --tree"
 
 alias cat="bat"
+alias extract="unar"
 
 backup() {
   # Function to create a backup of a given file.
@@ -61,9 +61,9 @@ create() {
     touch "$file_path"
 }
 
-
+# Apparenty, there is already unarchiver package in the AUR
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/extract/extract.plugin.zsh
-extract() {
+extract_function() {
   setopt localoptions noautopushd
 
   if (( $# == 0 )); then

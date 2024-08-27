@@ -1,0 +1,13 @@
+bat
+lsd
+unarchiver
+btop
+zoxide 
+starship
+fzf
+fastfetch
+kitty
+tealdeer
+pigz
+pbzip2
+ccache
