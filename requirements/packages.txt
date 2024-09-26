@@ -11,3 +11,4 @@ tealdeer
 pigz
 pbzip2
 ccache
+sccache

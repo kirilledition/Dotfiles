@@ -7,6 +7,7 @@ fi
 # Variables
 EDITOR="code --wait"
 PIP_CACHE_DIR="/Userdata/Software/PipCache"
+RUSTC_WRAPPER="/usr/bin/sccache"
 
 # Zinit setup
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
