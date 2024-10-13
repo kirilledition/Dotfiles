@@ -12,3 +12,8 @@ pigz
 pbzip2
 ccache
 sccache
+clang
+plzip
+zstd
+pbzip2
+pigz
