@@ -18,3 +18,4 @@ zstd
 pbzip2
 pigz
 micro
+duf
