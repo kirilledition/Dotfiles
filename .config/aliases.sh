@@ -9,6 +9,7 @@ alias tree="lsd --tree"
 alias cat="bat"
 alias extract="unar"
 alias df="duf"
+alias du="dust -T 0"
 
 backup() {
   # Function to create a backup of a given file.

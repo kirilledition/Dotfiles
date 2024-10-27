@@ -19,3 +19,4 @@ pbzip2
 pigz
 micro
 duf
+dust
