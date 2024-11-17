@@ -4,9 +4,9 @@
     "multithreading": true
   },
   "logo": {
-    "source": "chakra",
     "color": {
-      "1": "yellow"
+      "1": "yellow",
+      "2": "magenta"
     }
   },
   "display": {
