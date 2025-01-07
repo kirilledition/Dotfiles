@@ -125,9 +125,9 @@ rebuild() {
   # Show changes
   git diff -U0 *.nix
 
-  echo "NixOS Rebuilding..."
+  echo "Lighthouse Rebuilding..."
   if sudo nixos-rebuild switch --flake "$nixos_config" &> "$log_file"; then
-    echo "NixOS Rebuilt"
+    echo "Lighthouse Rebuilt"
     
     # Commit changes
     generation=$(nixos-rebuild list-generations | grep current)
