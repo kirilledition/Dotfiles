@@ -109,16 +109,17 @@ ligatures() {
     echo "@_ __ ??? ;;;"
 }
 
-rebuild_nixos() {
-  #!/bin/bash
+rebuild() {
   set -e
-  pushd $HOME/Dotfiles/nixos
+  NIXOS_CONFIG=$HOME/Dotfiles/nixos
+  pushd $NIXOS_CONFIG
 
   alejandra . &>/dev/null
   git diff -U0 *.nix
   echo "NixOS Rebuilding..."
-  sudo nixos-rebuild switch --flake . &>nixos-switch.log || (
-  cat nixos-switch.log | grep --color error && false)
+  sudo nixos-rebuild switch --flake $NIXOS_CONFIG &> $NIXOS_CONFIG/nixos-switch.log || (
+    cat nixos-switch.log | grep --color error && false
+  )
   echo "NixOS Rebuilt"
 
   generation=$(nixos-rebuild list-generations | grep current)
