@@ -1,15 +1,16 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-#      ./tailscale-ssh.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    #      ./tailscale-ssh.nix
+  ];
 
   # Bootloader.
   #boot.loader.systemd-boot.enable = true;
@@ -65,9 +66,9 @@
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.desktopManager.cinnamon.enable = true;
   services.xserver.displayManager.lightdm.greeters.gtk = {
-  cursorTheme = {
-    package = pkgs.banana-cursor;
-    name = "Banana";
+    cursorTheme = {
+      package = pkgs.banana-cursor;
+      name = "Banana";
     };
   };
 
@@ -104,18 +105,18 @@
   users.users.kirill = {
     isNormalUser = true;
     description = "Kirill";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = ["networkmanager" "wheel" "docker"];
     openssh.authorizedKeys.keys = [
-    	"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRF9XFFxQB7Qk8MOomo0CHdd+FlbwtPkcZ6NF7XHRh5QvDoaIoAPvYb44nWKFijc+hXypsysNVBTloPWtYwgc/+tHPvWZcUdh+1psy/RkHxkhLeyhNB8CpIGc7wiCbbDxTGpqq9hP0j/+AHOv7NOYQDdFNY/jXrXreQN9VlbvCGjzvJqRggqicvrc50yr2VccBPLbNt3od/FnFHafcT4/PZHFtNGMd+sCUSvlKg4d+yVfaf7vN9HpwlZatCGjPjW3DUV3zxErzSPK8apTfSP1dWY16EDgUjE9SkOPu7HqyL5CYMKHDPima2nbfbcetnE15D5PKAoXTIPA3o4PRay9R6CxGagBXEUY0hsGZmBgTgZEjkU6xIJmLGgdu2WZqRyfz4IJZLEDHP6M20k3vzhVmvJJkf5UMzjy6GCKgqma04rUjWJ07LMucUvyXe6tAwUh9+0LxNjzyryGxKfOIuguIR6ZHN71Un30umM4dcKW4zt/Qmk+3eA76VBUQXsgGsE8="
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRF9XFFxQB7Qk8MOomo0CHdd+FlbwtPkcZ6NF7XHRh5QvDoaIoAPvYb44nWKFijc+hXypsysNVBTloPWtYwgc/+tHPvWZcUdh+1psy/RkHxkhLeyhNB8CpIGc7wiCbbDxTGpqq9hP0j/+AHOv7NOYQDdFNY/jXrXreQN9VlbvCGjzvJqRggqicvrc50yr2VccBPLbNt3od/FnFHafcT4/PZHFtNGMd+sCUSvlKg4d+yVfaf7vN9HpwlZatCGjPjW3DUV3zxErzSPK8apTfSP1dWY16EDgUjE9SkOPu7HqyL5CYMKHDPima2nbfbcetnE15D5PKAoXTIPA3o4PRay9R6CxGagBXEUY0hsGZmBgTgZEjkU6xIJmLGgdu2WZqRyfz4IJZLEDHP6M20k3vzhVmvJJkf5UMzjy6GCKgqma04rUjWJ07LMucUvyXe6tAwUh9+0LxNjzyryGxKfOIuguIR6ZHN71Un30umM4dcKW4zt/Qmk+3eA76VBUQXsgGsE8="
     ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
   users.defaultUserShell = pkgs.zsh;
   programs.zsh.enable = true;
-  environment.shells = [ pkgs.zsh ];
+  environment.shells = [pkgs.zsh];
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -126,36 +127,36 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-     micro
-     vscode
-     fastfetch
-     _1password-cli
-     _1password-gui
-     obs-studio
-     bat
-     lsd
-     btop
-     zoxide
-     starship
-     fzf
-     kitty
-     duf
-     dust
-     git
-     stow
-     tailscale
-     ticktick
-     obsidian
-     mpv
-     zoom-us
-     audacity
-     nodejs_23
-     ffmpeg-full
-     banana-cursor
-     gh
-     alejandra
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  wget
+    micro
+    vscode
+    fastfetch
+    _1password-cli
+    _1password-gui
+    obs-studio
+    bat
+    lsd
+    btop
+    zoxide
+    starship
+    fzf
+    kitty
+    duf
+    dust
+    git
+    stow
+    tailscale
+    ticktick
+    obsidian
+    mpv
+    zoom-us
+    audacity
+    nodejs_23
+    ffmpeg-full
+    banana-cursor
+    gh
+    alejandra
   ];
 
   nixpkgs.overlays = [
@@ -168,8 +169,8 @@
 
   programs._1password.enable = true;
   programs._1password-gui = {
-  	enable = true;
-  	polkitPolicyOwners = [ "kirill" ];
+    enable = true;
+    polkitPolicyOwners = ["kirill"];
   };
 
   environment.etc = {
@@ -195,7 +196,6 @@
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
-
   };
   hardware.nvidia-container-toolkit.enable = true;
 
@@ -205,15 +205,15 @@
 
   services.tailscale.enable = true;
   services.openssh = {
-  	enable = true;
-  	settings.PasswordAuthentication = false;
+    enable = true;
+    settings.PasswordAuthentication = false;
     settings.PermitRootLogin = "yes";
   };
 
   fonts.packages = with pkgs; [
-  	noto-fonts
-  	noto-fonts-emoji
-  	jetbrains-mono
+    noto-fonts
+    noto-fonts-emoji
+    jetbrains-mono
   ];
 
   programs.nano.enable = false;
@@ -252,7 +252,7 @@
   console = {
     earlySetup = true;
     font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
-    packages = with pkgs; [ terminus_font ];
+    packages = with pkgs; [terminus_font];
     keyMap = "us";
   };
 
@@ -286,5 +286,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 }
