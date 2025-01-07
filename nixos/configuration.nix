@@ -157,6 +157,7 @@
     banana-cursor
     gh
     alejandra
+    ghostty
   ];
 
   nixpkgs.overlays = [
