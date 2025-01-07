@@ -24,10 +24,11 @@
       efiSupport = true;
       device = "nodev";
       useOSProber = true;
+      gfxmodeEfi = "2560x1440";
     };
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_6_11;
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
 
   networking.hostName = "lighthouse"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -63,6 +64,12 @@
   # Enable the Cinnamon Desktop Environment.
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.desktopManager.cinnamon.enable = true;
+  services.xserver.displayManager.lightdm.greeters.gtk = {
+  cursorTheme = {
+    package = pkgs.banana-cursor;
+    name = "Banana";
+    };
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -71,7 +78,7 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing.enable = false;
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -143,6 +150,19 @@
      obsidian
      mpv
      zoom-us
+     audacity
+     nodejs_23
+     ffmpeg-full
+     banana-cursor
+     gh
+  ];
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      btop = prev.btop.override {
+        cudaSupport = true;
+      };
+    })
   ];
 
   programs._1password.enable = true;
@@ -203,7 +223,42 @@
       Defaults pwfeedback
     '';
   };
+  programs.nix-ld.enable = true;
 
+  systemd.user = {
+    paths.vscode-remote-workaround = {
+      wantedBy = ["default.target"];
+      pathConfig.PathChanged = "%h/.vscode-server/bin";
+    };
+    services.vscode-remote-workaround.script = ''
+      for i in ~/.vscode-server/bin/*; do
+        if [ -e $i/node ]; then
+          echo "Fixing vscode-server in $i..."
+          ln -sf ${pkgs.nodejs_23}/bin/node $i/node
+        fi
+      done
+    '';
+  };
+
+  programs.ssh = {
+    # enable = true;
+    extraConfig = ''
+      Host *
+      IdentityAgent ~/.1password/agent.sock
+    '';
+  };
+
+  console = {
+    earlySetup = true;
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
+    packages = with pkgs; [ terminus_font ];
+    keyMap = "us";
+  };
+
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+  };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
