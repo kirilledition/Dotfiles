@@ -110,21 +110,35 @@ ligatures() {
 }
 
 rebuild() {
-  set -e
-  NIXOS_CONFIG=$HOME/Dotfiles/nixos
-  pushd $NIXOS_CONFIG
+  local nixos_config="$HOME/Dotfiles/nixos"
+  local log_file="$nixos_config/nixos-switch.log"
 
-  alejandra . &>/dev/null
+  pushd "$nixos_config" &> /dev/null || return 1
+
+  # Format nix files
+  if ! alejandra . &>/dev/null; then
+    echo "Error: Alejandra formatting failed"
+    popd &> /dev/null
+    return 1
+  fi
+
+  # Show changes
   git diff -U0 *.nix
+
   echo "NixOS Rebuilding..."
-  sudo nixos-rebuild switch --flake $NIXOS_CONFIG &> $NIXOS_CONFIG/nixos-switch.log || (
-    cat nixos-switch.log | grep --color error && false
-  )
-  echo "NixOS Rebuilt"
+  if sudo nixos-rebuild switch --flake "$nixos_config" &> "$log_file"; then
+    echo "NixOS Rebuilt"
+    
+    # Commit changes
+    generation=$(nixos-rebuild list-generations | grep current)
+    git commit -am "$generation" || echo "Warning: Git commit failed"
+  else
+    echo "Rebuild failed. Error log:"
+    cat "$log_file" | grep --color error
+    popd &> /dev/null
+    return 1
+  fi
 
-  generation=$(nixos-rebuild list-generations | grep current)
-  git commit -am "$generation"
-
-  popd
-  set +e
+  popd &> /dev/null
+  return 0
 }
