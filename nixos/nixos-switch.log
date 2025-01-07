@@ -1,0 +1,56 @@
+error:
+       … while evaluating the attribute 'config'
+         at /nix/store/w66xaybnxjf5zhxapxs3pd3zp7gxk9dw-source/lib/modules.nix:334:9:
+          333|         options = checked options;
+          334|         config = checked (removeAttrs config [ "_module" ]);
+             |         ^
+          335|         _module = checked (config._module);
+
+       … while calling the 'seq' builtin
+         at /nix/store/w66xaybnxjf5zhxapxs3pd3zp7gxk9dw-source/lib/modules.nix:334:18:
+          333|         options = checked options;
+          334|         config = checked (removeAttrs config [ "_module" ]);
+             |                  ^
+          335|         _module = checked (config._module);
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: file 'nixos-config' was not found in the Nix search path (add it using $NIX_PATH or -I)
+building Nix...
+error:
+       … while evaluating the attribute 'config'
+         at /nix/store/w66xaybnxjf5zhxapxs3pd3zp7gxk9dw-source/lib/modules.nix:334:9:
+          333|         options = checked options;
+          334|         config = checked (removeAttrs config [ "_module" ]);
+             |         ^
+          335|         _module = checked (config._module);
+
+       … while calling the 'seq' builtin
+         at /nix/store/w66xaybnxjf5zhxapxs3pd3zp7gxk9dw-source/lib/modules.nix:334:18:
+          333|         options = checked options;
+          334|         config = checked (removeAttrs config [ "_module" ]);
+             |                  ^
+          335|         _module = checked (config._module);
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: file 'nixos-config' was not found in the Nix search path (add it using $NIX_PATH or -I)
+building the system configuration...
+error:
+       … while evaluating the attribute 'config.system.build.toplevel'
+         at /nix/store/w66xaybnxjf5zhxapxs3pd3zp7gxk9dw-source/lib/modules.nix:334:9:
+          333|         options = checked options;
+          334|         config = checked (removeAttrs config [ "_module" ]);
+             |         ^
+          335|         _module = checked (config._module);
+
+       … while calling the 'seq' builtin
+         at /nix/store/w66xaybnxjf5zhxapxs3pd3zp7gxk9dw-source/lib/modules.nix:334:18:
+          333|         options = checked options;
+          334|         config = checked (removeAttrs config [ "_module" ]);
+             |                  ^
+          335|         _module = checked (config._module);
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: file 'nixos-config' was not found in the Nix search path (add it using $NIX_PATH or -I)
