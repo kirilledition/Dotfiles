@@ -108,3 +108,22 @@ ligatures() {
     echo -e "\nAt Symbol and Underscores:"
     echo "@_ __ ??? ;;;"
 }
+
+rebuild_nixos() {
+  #!/bin/bash
+  set -e
+  pushd $HOME/Dotfiles/nixos
+
+  alejandra . &>/dev/null
+  git diff -U0 *.nix
+  echo "NixOS Rebuilding..."
+  sudo nixos-rebuild switch &>nixos-switch.log || (
+  cat nixos-switch.log | grep --color error && false)
+  echo "NixOS Rebuilt"
+
+  generation=$(nixos-rebuild list-generations | grep current)
+  git commit -am "$generation"
+
+  popd
+  set +e
+}

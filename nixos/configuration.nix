@@ -155,6 +155,7 @@
      ffmpeg-full
      banana-cursor
      gh
+     alejandra
   ];
 
   nixpkgs.overlays = [
