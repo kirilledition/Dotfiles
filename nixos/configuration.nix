@@ -157,7 +157,7 @@
     banana-cursor
     gh
     alejandra
-    # ghostty
+    onlyoffice-bin
   ];
 
   nixpkgs.overlays = [
