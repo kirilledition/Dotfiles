@@ -158,6 +158,7 @@
     gh
     alejandra
     onlyoffice-bin
+    tealdeer
   ];
 
   nixpkgs.overlays = [
