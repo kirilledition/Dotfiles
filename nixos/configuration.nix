@@ -4,6 +4,7 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
   imports = [
@@ -159,8 +160,9 @@
     alejandra
     onlyoffice-bin
     tealdeer
+    davinci-resolve
+    inputs.ghostty.packages.x86_64-linux.default
   ];
-
   nixpkgs.overlays = [
     (final: prev: {
       btop = prev.btop.override {
