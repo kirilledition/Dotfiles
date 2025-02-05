@@ -1,73 +1,65 @@
 warning: Git tree '/home/kirill/Dotfiles' is dirty
 building the system configuration...
 warning: Git tree '/home/kirill/Dotfiles' is dirty
-these 30 derivations will be built:
-  /nix/store/r6iyjxswxm5icjz0dw8bz7zjydgr8vpy-nvidia-x11-565.77-6.13.drv
-  /nix/store/az6qh7z25bv7mqqycjqjw2w8a1vn37s5-nvidia-settings-565.77.drv
-  /nix/store/5n1b9bcswkfxpk2qnygqinn965ybfz5p-system-path.drv
-  /nix/store/ja2mg3nmvzv26lzfrvh0nfffc87swgjz-firmware.drv
-  /nix/store/kydiyjsa8qpzphq48a02vzpnhbf6r3gx-linux-6.13-modules.drv
-  /nix/store/hxfrp8ssg8s57hkmkd1917gdbzn3wyma-linux-6.13-modules-shrunk.drv
-  /nix/store/d7xl5jmlw98hwck0sdvl0dqns9s08r8j-initrd-linux-6.13.drv
-  /nix/store/aahyyimzxm1p5n4x4g170dq83fyhvg01-boot.json.drv
-  /nix/store/6g63yb46pk8fsl09iyqil3jn4bnjhg5i-etc-modprobe.d-firmware.conf.drv
-  /nix/store/9v7p6mm6gax33cf34f2gdc40nwbr5472-dbus-1.drv
-  /nix/store/gxw7mar0vc37mwcxfsbynyc3dqzgdkyw-xserver.conf.drv
-  /nix/store/65z2n1p3pq9a7f4fvkmx2i6nb9mammjs-xserver-wrapper.drv
-  /nix/store/bv96839jp77pybfr90h0wsakwzi1fn22-lightdm.conf.drv
-  /nix/store/m3q89z5br5igrn5a826mdaddpas2sbl9-X-Restart-Triggers-polkit.drv
-  /nix/store/5dr4fh0dch1c4kjhgwa1lxp4whf5hk2m-unit-polkit.service.drv
-  /nix/store/h0wiyiidhfw42vdwxjhca68h9rmrbvmy-X-Restart-Triggers-dbus.drv
-  /nix/store/88cw4qpr2yfs2b0c2wxnlhkry6v8jc2v-unit-dbus.service.drv
-  /nix/store/ia0yp8l81asf2qc2mh0bc5hmk9xl42mi-unit-accounts-daemon.service.drv
-  /nix/store/lf27668z98084sjbxq6qnksd9f4nysq3-nvidia-cdi-generator.drv
-  /nix/store/qv0w7l1yl4f6gqnqm7rq6kws5phdi299-unit-nvidia-container-toolkit-cdi-generator.service.drv
-  /nix/store/ckzjd59146b0dgvsx44inydavzvd3bb0-graphics-drivers.drv
-  /nix/store/gv3b33kkp7jfdgr106fmpg3cq067a5ws-graphics-driver.conf.drv
-  /nix/store/pcl93d9pr7hs0ximlvd9kiq20yrqw863-tmpfiles.d.drv
-  /nix/store/j3vvv14bw1fz4rgcs4jswl5mzd5kr0v2-X-Restart-Triggers-systemd-tmpfiles-resetup.drv
-  /nix/store/sw13a8225mxnivv72j0dsfiy60psxq6x-unit-systemd-tmpfiles-resetup.service.drv
-  /nix/store/ca021zfal830zp1v3inmd12sf5aq9i1l-system-units.drv
-  /nix/store/ggzfbdibc3czw5b37l6a75idjbwa25n4-unit-dbus.service.drv
-  /nix/store/izqkbs98a4zxkq05gdaz4i5g6amsa2p4-user-units.drv
-  /nix/store/nrqhxvzd5wdcvnw718a8wkqvr927bk4v-etc.drv
-  /nix/store/4q4yj20jn93dwri481nf9mlifiiks5aq-nixos-system-lighthouse-24.11.20250129.59e618d.drv
-these 2 paths will be fetched (245.07 MiB download, 661.98 MiB unpacked):
-  /nix/store/im9a3dg5j198b3zba2zxdwqmi9wf4kqv-linux-6.13
-  /nix/store/br743nlpyc9gq1vpjzggg4fgrqwzac7m-linux-6.13-dev
-copying path '/nix/store/im9a3dg5j198b3zba2zxdwqmi9wf4kqv-linux-6.13' from 'https://cache.nixos.org'...
-copying path '/nix/store/br743nlpyc9gq1vpjzggg4fgrqwzac7m-linux-6.13-dev' from 'https://cache.nixos.org'...
-building '/nix/store/r6iyjxswxm5icjz0dw8bz7zjydgr8vpy-nvidia-x11-565.77-6.13.drv'...
-error: builder for '/nix/store/r6iyjxswxm5icjz0dw8bz7zjydgr8vpy-nvidia-x11-565.77-6.13.drv' failed with exit code 2;
-       last 25 log lines:
-       >   CC [M]  nvidia-drm/nvidia-drm-helper.o
-       >   CC [M]  nvidia-drm/nv-kthread-q.o
-       >   CC [M]  nvidia-drm/nv-pci-table.o
-       >   CC [M]  nvidia-drm/nvidia-drm-gem-nvkms-memory.o
-       >   CC [M]  nvidia-drm/nvidia-drm-gem-user-memory.o
-       >   CC [M]  nvidia-drm/nvidia-drm-gem-dma-buf.o
-       >   CC [M]  nvidia-drm/nvidia-drm-format.o
-       >   CC [M]  nvidia-drm/nvidia-drm-os-interface.o
-       >   CC [M]  nvidia-drm/nvidia-drm-linux.o
-       >   CC [M]  nvidia-peermem/nvidia-peermem.o
-       > ld -r -o nvidia/nv-interface.o nvidia/nv.o nvidia/nv-pci.o nvidia/nv-dmabuf.o nvidia/nv-nano-timer.o nvidia/nv-acpi.o nvidia/nv-cray.o nvidia/nv-dma.o nvidia/nv-i2c.o nvidia/nv-mmap.o nvidia/nv-p2p.o nvidia/nv-pat.o nvidia/nv-procfs.o nvidia/nv-usermap.o nvidia/nv-vm.o nvidia/nv-vtophys.o nvidia/os-interface.o nvidia/os-mlock.o nvidia/os-pci.o nvidia/os-registry.o nvidia/os-usermap.o nvidia/nv-modeset-interface.o nvidia/nv-pci-table.o nvidia/nv-kthread-q.o nvidia/nv-memdbg.o nvidia/nv-ibmnpu.o nvidia/nv-report-err.o nvidia/nv-rsync.o nvidia/nv-msi.o nvidia/nv-caps.o nvidia/nv-caps-imex.o nvidia/nv-host1x.o nvidia/nv_uvm_interface.o nvidia/libspdm_aead.o nvidia/libspdm_ecc.o nvidia/libspdm_hkdf.o nvidia/libspdm_rand.o nvidia/libspdm_shash.o nvidia/libspdm_rsa.o nvidia/libspdm_aead_aes_gcm.o nvidia/libspdm_sha.o nvidia/libspdm_hmac_sha.o nvidia/libspdm_internal_crypt_lib.o nvidia/libspdm_hkdf_sha.o nvidia/libspdm_ec.o nvidia/libspdm_x509.o nvidia/libspdm_rsa_ext.o nvidia/nvlink_linux.o nvidia/nvlink_caps.o nvidia/linux_nvswitch.o nvidia/procfs_nvswitch.o nvidia/i2c_nvswitch.o
-       > ld -r -o nvidia-modeset/nv-modeset-interface.o nvidia-modeset/nvidia-modeset-linux.o nvidia-modeset/nv-kthread-q.o
-       >   LD [M]  nvidia.o
-       >   LD [M]  nvidia-modeset.o
-       > /nix/store/vk4mlknqk9yjbqa68a7rvpfxfdw3rad7-binutils-2.43.1/bin/ld: cannot find ./nvidia-modeset/nv-modeset-kernel.o: No such file or directory
-       > make[4]: *** [/nix/store/br743nlpyc9gq1vpjzggg4fgrqwzac7m-linux-6.13-dev/lib/modules/6.13.0/source/scripts/Makefile.build:387: nvidia-modeset.o] Error 1
-       > make[4]: *** Waiting for unfinished jobs....
-       > /nix/store/vk4mlknqk9yjbqa68a7rvpfxfdw3rad7-binutils-2.43.1/bin/ld: cannot find ./nvidia/nv-kernel.o: No such file or directory
-       > make[4]: *** [/nix/store/br743nlpyc9gq1vpjzggg4fgrqwzac7m-linux-6.13-dev/lib/modules/6.13.0/source/scripts/Makefile.build:387: nvidia.o] Error 1
-       > make[3]: *** [/nix/store/br743nlpyc9gq1vpjzggg4fgrqwzac7m-linux-6.13-dev/lib/modules/6.13.0/source/Makefile:1989: .] Error 2
-       > make[2]: *** [/nix/store/br743nlpyc9gq1vpjzggg4fgrqwzac7m-linux-6.13-dev/lib/modules/6.13.0/source/Makefile:251: __sub-make] Error 2
-       > make[2]: Leaving directory '/build/NVIDIA-Linux-x86_64-565.77/kernel'
-       > make[1]: *** [Makefile:251: __sub-make] Error 2
-       > make[1]: Leaving directory '/nix/store/br743nlpyc9gq1vpjzggg4fgrqwzac7m-linux-6.13-dev/lib/modules/6.13.0/source'
-       > make: *** [Makefile:115: modules] Error 2
-       For full logs, run 'nix log /nix/store/r6iyjxswxm5icjz0dw8bz7zjydgr8vpy-nvidia-x11-565.77-6.13.drv'.
-error: 1 dependencies of derivation '/nix/store/nrqhxvzd5wdcvnw718a8wkqvr927bk4v-etc.drv' failed to build
-error: 1 dependencies of derivation '/nix/store/ja2mg3nmvzv26lzfrvh0nfffc87swgjz-firmware.drv' failed to build
-error: 1 dependencies of derivation '/nix/store/kydiyjsa8qpzphq48a02vzpnhbf6r3gx-linux-6.13-modules.drv' failed to build
-error: 1 dependencies of derivation '/nix/store/5n1b9bcswkfxpk2qnygqinn965ybfz5p-system-path.drv' failed to build
-error: 1 dependencies of derivation '/nix/store/4q4yj20jn93dwri481nf9mlifiiks5aq-nixos-system-lighthouse-24.11.20250129.59e618d.drv' failed to build
+these 14 derivations will be built:
+  /nix/store/6mncwbadlmsdqzplzw8wm6sv99b3adzq-google-chrome-stable_132.0.6834.110-1_amd64.deb.drv
+  /nix/store/sfi66w4xjz36rxsbfrm2ffjacdxssp69-google-chrome-132.0.6834.110.drv
+  /nix/store/j24drc3hvqbdv2jhik6qj3k3f91g8gww-system-path.drv
+  /nix/store/c4sp92g2zb175n1k4hpzli76z0jdsqb1-dbus-1.drv
+  /nix/store/280hdrc6fj4i3iwckgq9bfgraz5qhg9z-X-Restart-Triggers-dbus.drv
+  /nix/store/vjr3dwx7m768yrckg0jxydz67i30jxmy-X-Restart-Triggers-polkit.drv
+  /nix/store/92ivaw2d4814pjanz82qip0ykmbvlwgw-unit-polkit.service.drv
+  /nix/store/f8iybnv5scpvb5gxc64b1nibxjk7ynw7-unit-accounts-daemon.service.drv
+  /nix/store/p2l50lkqcpnz8ibw3cndv4h4w8bqi7w2-unit-dbus.service.drv
+  /nix/store/3sg7jdb4gz87m63b0pdgvw06w27wlh9r-system-units.drv
+  /nix/store/z2yc45rk66vd6vbjprxvzz20xc7yjaz3-unit-dbus.service.drv
+  /nix/store/idvc1ribzxfbb7i2wpyc4rpbsai1p4b5-user-units.drv
+  /nix/store/2ww5ybj2zajxndh48dz9zg0nw15xaz51-etc.drv
+  /nix/store/q1nvkmcdsjh8l4m974qvw3kha2qf2xi9-nixos-system-lighthouse-24.11.20250129.59e618d.drv
+these 8 paths will be fetched (9.50 MiB download, 43.97 MiB unpacked):
+  /nix/store/g4s540xk8vp71kblkqwca4hhk5llmkji-curl-8.11.1
+  /nix/store/3q2bg5nj1jq3j70c1ah18syj72i1vrl3-curl-8.11.1-bin
+  /nix/store/bnhi1x9wzycl51zany3b0jxlvgbnwglb-curl-8.11.1-dev
+  /nix/store/vcapdcizykc9qn19bf5qz62ass0pj9sn-curl-8.11.1-man
+  /nix/store/wcy0ksa52q82hf2my0j4lh9fwclsxq3s-graphene-1.10.8-dev
+  /nix/store/gkcc8gkaia89h62sdc1gr1lvfrwx2a98-gtk4-4.16.7-dev
+  /nix/store/kclzb94h57473pad2f539amssl6x6ci4-vulkan-loader-1.3.296.0-dev
+  /nix/store/g6iax15lhs4jgy2wz94aw8hiady1lsnc-wget-1.25.0
+copying path '/nix/store/g6iax15lhs4jgy2wz94aw8hiady1lsnc-wget-1.25.0' from 'https://cache.nixos.org'...
+copying path '/nix/store/wcy0ksa52q82hf2my0j4lh9fwclsxq3s-graphene-1.10.8-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/kclzb94h57473pad2f539amssl6x6ci4-vulkan-loader-1.3.296.0-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/vcapdcizykc9qn19bf5qz62ass0pj9sn-curl-8.11.1-man' from 'https://cache.nixos.org'...
+copying path '/nix/store/g4s540xk8vp71kblkqwca4hhk5llmkji-curl-8.11.1' from 'https://cache.nixos.org'...
+copying path '/nix/store/gkcc8gkaia89h62sdc1gr1lvfrwx2a98-gtk4-4.16.7-dev' from 'https://cache.nixos.org'...
+copying path '/nix/store/3q2bg5nj1jq3j70c1ah18syj72i1vrl3-curl-8.11.1-bin' from 'https://cache.nixos.org'...
+copying path '/nix/store/bnhi1x9wzycl51zany3b0jxlvgbnwglb-curl-8.11.1-dev' from 'https://cache.nixos.org'...
+building '/nix/store/6mncwbadlmsdqzplzw8wm6sv99b3adzq-google-chrome-stable_132.0.6834.110-1_amd64.deb.drv'...
+building '/nix/store/sfi66w4xjz36rxsbfrm2ffjacdxssp69-google-chrome-132.0.6834.110.drv'...
+building '/nix/store/j24drc3hvqbdv2jhik6qj3k3f91g8gww-system-path.drv'...
+building '/nix/store/vjr3dwx7m768yrckg0jxydz67i30jxmy-X-Restart-Triggers-polkit.drv'...
+building '/nix/store/c4sp92g2zb175n1k4hpzli76z0jdsqb1-dbus-1.drv'...
+building '/nix/store/f8iybnv5scpvb5gxc64b1nibxjk7ynw7-unit-accounts-daemon.service.drv'...
+building '/nix/store/280hdrc6fj4i3iwckgq9bfgraz5qhg9z-X-Restart-Triggers-dbus.drv'...
+building '/nix/store/92ivaw2d4814pjanz82qip0ykmbvlwgw-unit-polkit.service.drv'...
+building '/nix/store/p2l50lkqcpnz8ibw3cndv4h4w8bqi7w2-unit-dbus.service.drv'...
+building '/nix/store/z2yc45rk66vd6vbjprxvzz20xc7yjaz3-unit-dbus.service.drv'...
+building '/nix/store/3sg7jdb4gz87m63b0pdgvw06w27wlh9r-system-units.drv'...
+building '/nix/store/idvc1ribzxfbb7i2wpyc4rpbsai1p4b5-user-units.drv'...
+building '/nix/store/2ww5ybj2zajxndh48dz9zg0nw15xaz51-etc.drv'...
+building '/nix/store/q1nvkmcdsjh8l4m974qvw3kha2qf2xi9-nixos-system-lighthouse-24.11.20250129.59e618d.drv'...
+updating GRUB 2 menu...
+Warning: os-prober will be executed to detect other bootable partitions.
+Its output will be used to detect bootable binaries on them and create new boot entries.
+lsblk: /dev/mapper/no*[0-9]: not a block device
+lsblk: /dev/mapper/raid*[0-9]: not a block device
+lsblk: /dev/mapper/disks*[0-9]: not a block device
+Found Windows Boot Manager on /dev/nvme0n1p1@/efi/Microsoft/Boot/bootmgfw.efi
+stopping the following units: accounts-daemon.service
+activating the configuration...
+setting up /etc...
+reloading user units for kirill...
+restarting sysinit-reactivation.target
+reloading the following units: dbus.service
+restarting the following units: polkit.service
+starting the following units: accounts-daemon.service
+the following new units were started: run-credentials-systemd\x2dtmpfiles\x2dresetup.service.mount, sysinit-reactivation.target, systemd-tmpfiles-resetup.service

@@ -161,6 +161,7 @@
     onlyoffice-bin
     tealdeer
     davinci-resolve
+    google-chrome
     inputs.ghostty.packages.x86_64-linux.default
   ];
   nixpkgs.overlays = [
