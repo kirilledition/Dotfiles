@@ -30,7 +30,7 @@
     };
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_6_13;
+  boot.kernelPackages = pkgs.linuxPackages_6_15;
 
   networking.hostName = "lighthouse"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -83,7 +83,7 @@
   services.printing.enable = false;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -153,7 +153,7 @@
     mpv
     zoom-us
     audacity
-    nodejs_23
+    nodejs_24
     ffmpeg-full
     banana-cursor
     gh
@@ -163,6 +163,7 @@
     davinci-resolve
     google-chrome
     inputs.ghostty.packages.x86_64-linux.default
+    code-cursor
   ];
   nixpkgs.overlays = [
     (final: prev: {
@@ -240,7 +241,7 @@
       for i in ~/.vscode-server/bin/*; do
         if [ -e $i/node ]; then
           echo "Fixing vscode-server in $i..."
-          ln -sf ${pkgs.nodejs_23}/bin/node $i/node
+          ln -sf ${pkgs.nodejs_24}/bin/node $i/node
         fi
       done
     '';
