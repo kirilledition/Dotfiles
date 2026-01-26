@@ -1,10 +1,10 @@
 alias mkdir="mkdir -p"
-alias grep="grep --color=auto"
+alias grep="rg"
 alias cp="cp -r"
 
-alias ls="lsd"
-alias l="lsd -la"
-alias tree="lsd --tree"
+alias ls="eza"
+alias l="eza -la"
+alias tree="eza --tree"
 
 alias cat="bat"
 alias extract="unar"
@@ -130,11 +130,11 @@ rebuild() {
     echo "Lighthouse Rebuilt"
     
     # Commit changes
-    generation=$(nixos-rebuild list-generations | grep current)
+    generation=$(nixos-rebuild list-generations | rg current)
     git commit -am "$generation" || echo "Warning: Git commit failed"
   else
     echo "Rebuild failed. Error log:"
-    cat "$log_file" | grep --color error
+    cat "$log_file" | rg error
     popd &> /dev/null
     return 1
   fi

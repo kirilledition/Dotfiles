@@ -1,3 +1,5 @@
 .config/btop/btop.log
 
 *.DS_Store
+
+nixos/nixos-switch.log

@@ -30,7 +30,7 @@
     };
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_6_18;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "lighthouse"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -64,14 +64,20 @@
   services.xserver.enable = true;
 
   # Enable the Cinnamon Desktop Environment.
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.cinnamon.enable = true;
-  services.xserver.displayManager.lightdm.greeters.gtk = {
-    cursorTheme = {
-      package = pkgs.banana-cursor;
-      name = "Banana";
-    };
-  };
+  # services.xserver.displayManager.lightdm.enable = true;
+  # services.xserver.desktopManager.cinnamon.enable = true;
+  # services.xserver.displayManager.lightdm.greeters.gtk = {
+  #   cursorTheme = {
+  #     package = pkgs.banana-cursor;
+  #     name = "Banana";
+  #   };
+  # };
+
+  # Enable the COSMIC login manager
+  services.displayManager.cosmic-greeter.enable = true;
+
+  # Enable the COSMIC desktop environment
+  services.desktopManager.cosmic.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -120,7 +126,7 @@
   environment.shells = [pkgs.zsh];
 
   # Install firefox.
-  programs.firefox.enable = true;
+  programs.firefox.enable = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -138,6 +144,8 @@
     obs-studio
     bat
     lsd
+    eza
+    ripgrep
     btop
     zoxide
     starship
@@ -153,9 +161,9 @@
     mpv
     zoom-us
     audacity
-    nodejs_24
+    nodejs_25
     ffmpeg-full
-    banana-cursor
+    # banana-cursor
     gh
     alejandra
     onlyoffice-desktopeditors
@@ -164,10 +172,8 @@
     hunspellDicts.ru_RU
     hunspellDicts.en_US
     tealdeer
-    davinci-resolve
     google-chrome
     inputs.ghostty.packages.x86_64-linux.default
-    code-cursor
     antigravity
   ];
   nixpkgs.overlays = [
@@ -187,7 +193,7 @@
   environment.etc = {
     "1password/custom_allowed_browsers" = {
       text = ''
-        firefox
+        google-chrome
       '';
       mode = "0755";
     };
@@ -246,7 +252,7 @@
       for i in ~/.vscode-server/bin/*; do
         if [ -e $i/node ]; then
           echo "Fixing vscode-server in $i..."
-          ln -sf ${pkgs.nodejs_24}/bin/node $i/node
+          ln -sf ${pkgs.nodejs_25}/bin/node $i/node
         fi
       done
     '';
@@ -270,6 +276,12 @@
   catppuccin = {
     enable = true;
     flavor = "mocha";
+    accent = "sapphire";
+    cursors = {
+      enable = true;
+      flavor = "mocha";
+      accent = "sapphire";
+    };
   };
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

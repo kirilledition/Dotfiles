@@ -1,5 +1,5 @@
 [user]
-    name = "Kirill Denisov"
+    name = "kirill denisov"
     email = "kirilledition@protonmail.com"
 [github]
     user = kirilledition
@@ -8,4 +8,4 @@
 [credential "https://gist.github.com"]
     helper = !gh auth git-credential
 [core]
-    editor = code --wait
+    editor = micro
