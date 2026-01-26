@@ -30,7 +30,7 @@
     };
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_6_15;
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
 
   networking.hostName = "lighthouse"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -158,12 +158,17 @@
     banana-cursor
     gh
     alejandra
-    onlyoffice-bin
+    onlyoffice-desktopeditors
+    libreoffice-qt
+    hunspell
+    hunspellDicts.ru_RU
+    hunspellDicts.en_US
     tealdeer
     davinci-resolve
     google-chrome
     inputs.ghostty.packages.x86_64-linux.default
     code-cursor
+    antigravity
   ];
   nixpkgs.overlays = [
     (final: prev: {
@@ -172,7 +177,7 @@
       };
     })
   ];
-
+  programs.thunderbird.enable = true;
   programs._1password.enable = true;
   programs._1password-gui = {
     enable = true;
@@ -218,7 +223,7 @@
 
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     jetbrains-mono
   ];
 

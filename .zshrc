@@ -60,8 +60,8 @@ export FZF_DEFAULT_OPTS=" \
 --multi"
 
 source ~/.config/aliases.sh
-
+export PATH="$HOME/.local/bin:$PATH"
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
-eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init --cmd cd zsh)"export PATH="$HOME/.local/bin:$PATH"
