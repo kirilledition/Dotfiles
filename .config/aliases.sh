@@ -1,5 +1,5 @@
 alias mkdir="mkdir -p"
-alias grep="rg"
+alias grep="rg -i"
 alias cp="cp -r"
 
 alias ls="eza"
@@ -139,7 +139,7 @@ rebuild() {
     
     # Get current generation info and trim whitespace using awk
     local generation
-    generation=$(nixos-rebuild list-generations | grep current | awk '{$1=$1};1')
+    generation=$(nixos-rebuild list-generations | rg -i current | awk '{$1=$1};1')
     
     # Commit changes
     git commit -am "$generation" || echo "Warning: Git commit failed"
