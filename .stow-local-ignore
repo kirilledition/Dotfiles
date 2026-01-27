@@ -1,10 +1,18 @@
-.*\.backup
+# Metadata
+\.stow-local-ignore
 
+# Git
 \.git
 \.gitignore
 
-^/README.*
-^/LICENSE.*
+# System / Cache
+\.DS_Store
+.*\.backup
+.*\.swp
 
-system
-requirements
+# Documentation
+^LICENSE.*
+^README\..*
+
+# Subdirectories to ignore
+^nixos
