@@ -26,16 +26,8 @@ This repository contains my system configuration files, managed using GNU Stow f
 
 ### Requirements
 
-#### Mac
-To install the necessary packages, run:
-```sh
-brew install stow starship zoxide fzf lsd bat gh fastfetch
 ```
-
-#### Linux
-To install the necessary packages on Linux (using `paru`), run:
-```sh
-paru -S stow starship zoxide fzf lsd bat gh fastfetch
+stow starship zoxide fzf eza bat ripgrep unar duf dust micro fastfetch
 ```
 
 ## Enable Dotfiles
@@ -47,11 +39,6 @@ stow .
 
 bat cache --build 
 fast-theme XDG:catppuccin-mocha
-
-sudo ln -s /home/$(whoami)/Dotfiles/system/earlyoom /etc/default/earlyoom
-sudo ln -s /home/$(whoami)/Dotfiles/system/motd.sh /etc/profile.d/
-sudo ln -s /home/$(whoami)/Dotfiles/system/pacman.conf /etc/pacman.conf
-sudo ln -s /home/$(whoami)/Dotfiles/system/makepkg.conf /etc/makepkg.conf
 ```
 
 By following the setup instructions, you can quickly apply these configurations to your system, ensuring a consistent and personalized development environment. 🚀

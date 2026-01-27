@@ -7,8 +7,6 @@ fi
 # Variables
 EDITOR="micro"
 MICRO_TRUECOLOR="1"
-PIP_CACHE_DIR="/Userdata/YDataDisk/Caches/PipCache"
-RUSTC_WRAPPER="/usr/bin/sccache"
 
 # Zinit setup
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"

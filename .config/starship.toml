@@ -5,8 +5,8 @@ palette = "catppuccin_mocha"
 success_symbol = "[|>](bold green) "
 error_symbol = "[|>](bold red) "
 
-[nodejs]
-symbol = "⬢ "
+# [nodejs]
+# symbol = "⬢ "
 
 [python]
 disabled = true

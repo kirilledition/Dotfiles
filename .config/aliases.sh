@@ -123,18 +123,28 @@ rebuild() {
   fi
 
   # Show changes
+  # Use --color=always so it looks nice even if piping (though we aren't piping here)
   git diff -U0 *.nix
 
   echo "Lighthouse Rebuilding..."
-  if sudo nixos-rebuild switch --flake "$nixos_config" &> "$log_file"; then
+  
+  # Enable pipefail so that if nixos-rebuild fails, the entire pipe fails
+  # localoptions ensures this setting doesn't persist outside the function (Zsh)
+  setopt localoptions pipefail 2>/dev/null || set -o pipefail
+
+  # Run rebuild, piping output to tee to show it live AND save to log
+  # 2>&1 ensures stderr is captured too
+  if sudo nixos-rebuild switch --flake "$nixos_config" 2>&1 | tee "$log_file"; then
     echo "Lighthouse Rebuilt"
     
+    # Get current generation info and trim whitespace using awk
+    local generation
+    generation=$(nixos-rebuild list-generations | grep current | awk '{$1=$1};1')
+    
     # Commit changes
-    generation=$(nixos-rebuild list-generations | rg current)
     git commit -am "$generation" || echo "Warning: Git commit failed"
   else
-    echo "Rebuild failed. Error log:"
-    cat "$log_file" | rg error
+    echo "Rebuild failed! Check output above."
     popd &> /dev/null
     return 1
   fi
