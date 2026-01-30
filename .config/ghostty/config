@@ -1,0 +1,68 @@
+# ============================================================================
+# Ghostty Configuration - Catppuccin Mocha
+# ============================================================================
+
+# ----------------------------------------------------------------------------
+# Font Configuration
+# ----------------------------------------------------------------------------
+font-family = JetBrains Mono
+font-size = 17
+font-feature = -liga
+
+# ----------------------------------------------------------------------------
+# Theme: Catppuccin Mocha (Built-in)
+# ----------------------------------------------------------------------------
+theme = Catppuccin Mocha
+
+# ----------------------------------------------------------------------------
+# Cursor Configuration
+# ----------------------------------------------------------------------------
+cursor-style = block
+cursor-style-blink = true
+
+# ----------------------------------------------------------------------------
+# Window Configuration
+# ----------------------------------------------------------------------------
+window-width = 90
+window-height = 30
+window-padding-x = 2
+window-padding-y = 2
+window-padding-balance = true
+
+# ----------------------------------------------------------------------------
+# Background & Transparency
+# ----------------------------------------------------------------------------
+background-opacity = 0.85
+background-blur = 10
+
+# ----------------------------------------------------------------------------
+# Window Decoration (macOS)
+# ----------------------------------------------------------------------------
+window-decoration = auto
+macos-titlebar-style = transparent
+window-vsync = true
+window-save-state = never
+
+# ----------------------------------------------------------------------------
+# Scrollback
+# ----------------------------------------------------------------------------
+scrollback-limit = 10000000
+
+# ----------------------------------------------------------------------------
+# Keybindings
+# ----------------------------------------------------------------------------
+
+# Window Management
+keybind = super+q=quit
+keybind = super+n=new_window
+keybind = super+t=new_tab
+keybind = super+w=close_tab
+
+# Tab Navigation
+keybind = super+1=goto_tab:1
+keybind = super+2=goto_tab:2
+keybind = super+3=goto_tab:3
+keybind = super+4=goto_tab:4
+keybind = super+5=goto_tab:5
+
+# Note: Scrollback search uses default Cmd+Shift+J (exports to file)

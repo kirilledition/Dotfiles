@@ -62,4 +62,4 @@ export PATH="$HOME/.local/bin:$PATH"
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
-eval "$(zoxide init --cmd cd zsh)"export PATH="$HOME/.local/bin:$PATH"
+eval "$(zoxide init --cmd cd zsh)"
