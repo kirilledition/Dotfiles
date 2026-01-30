@@ -66,3 +66,5 @@ keybind = super+4=goto_tab:4
 keybind = super+5=goto_tab:5
 
 # Note: Scrollback search uses default Cmd+Shift+J (exports to file)
+
+shell-integration-features = true
