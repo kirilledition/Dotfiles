@@ -112,8 +112,19 @@ ligatures() {
 rebuild() {
   local nixos_config="$HOME/Dotfiles/nixos"
   local log_file="$nixos_config/nixos-switch.log"
+  local update_flake="$1"
 
   pushd "$nixos_config" &> /dev/null || return 1
+
+  # Update flake inputs if requested
+  if [[ "$update_flake" == "update" ]]; then
+    echo "Updating flake inputs..."
+    if ! nix flake update; then
+      echo "Error: Flake update failed"
+      popd &> /dev/null
+      return 1
+    fi
+  fi
 
   # Format nix files
   if ! alejandra . &>/dev/null; then
@@ -124,7 +135,7 @@ rebuild() {
 
   # Show changes
   # Use --color=always so it looks nice even if piping (though we aren't piping here)
-  git diff -U0 *.nix
+  git diff -U0
 
   echo "Lighthouse Rebuilding..."
   
