@@ -148,12 +148,22 @@ rebuild() {
   if sudo nixos-rebuild switch --flake "$nixos_config" 2>&1 | tee "$log_file"; then
     echo "Lighthouse Rebuilt"
     
-    # Get current generation info and trim whitespace using awk
-    local generation
     generation=$(nixos-rebuild list-generations | rg -i current | awk '{$1=$1};1')
     
     # Commit changes
     git commit -am "$generation" || echo "Warning: Git commit failed"
+    
+    # Show package changes with nvd
+    # Get the last two system generations (current and previous)
+    # nvd expects paths to the generation directories (symlinks in /nix/var/nix/profiles/)
+    echo "Calculating package diff..."
+    # We use ls -v to sort by version number naturally
+    local gens=($(ls -d1v /nix/var/nix/profiles/system-*-link | tail -n 2))
+    if [ "${#gens[@]}" -eq 2 ]; then
+      nvd diff "${gens[0]}" "${gens[1]}"
+    else
+      echo "Not enough generations to compare."
+    fi
   else
     echo "Rebuild failed! Check output above."
     popd &> /dev/null

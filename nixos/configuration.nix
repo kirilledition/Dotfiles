@@ -173,8 +173,10 @@
     hunspellDicts.en_US
     tealdeer
     google-chrome
+    firefox
     inputs.ghostty.packages.x86_64-linux.default
     antigravity
+    nvd
   ];
   nixpkgs.overlays = [
     (final: prev: {
