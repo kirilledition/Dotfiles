@@ -183,3 +183,30 @@ rebuild() {
   popd &> /dev/null
   return 0
 }
+
+setup_software() {
+    local install_directory="$HOME/Software"
+    local eget_binary="$install_directory/eget"
+
+    mkdir -p "$install_directory"
+    [[ ":$PATH:" != *":$install_directory:"* ]] && export PATH="$install_directory:$PATH"
+
+    if [[ ! -f "$eget_binary" ]]; then
+        echo "-> Installing eget..."
+        pushd "$install_directory" > /dev/null
+        curl https://zyedidia.github.io/eget.sh | sh
+        popd > /dev/null
+    fi
+
+    echo "-> Checking for updates..."
+    
+    # Update eget first, then other tools
+    "$eget_binary" zyedidia/eget --to "$eget_binary" --quiet
+    "$eget_binary" --download-all
+
+    echo "-> Software update complete."
+    
+    if ! grep -q "$install_directory" "$HOME/.zshrc" && ! grep -q "$install_directory" "$HOME/.bashrc"; then
+         echo -e "!! WARNING: '$install_directory' might not be in your persistent PATH.\n   Consider adding this to your shell config:\n   export PATH=\"$install_directory:\$PATH\""
+    fi
+}

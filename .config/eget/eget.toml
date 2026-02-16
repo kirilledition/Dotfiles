@@ -1,0 +1,16 @@
+[global]
+target = "~/Software"
+
+["starship/starship"]
+["zyedidia/micro"]
+["junegunn/fzf"]
+["ajeetdsouza/zoxide"]
+["ouch-org/ouch"]
+["aristocratos/btop"]
+["fastfetch-cli/fastfetch"]
+["sharkdp/bat"]
+["eza-community/eza"]
+["muesli/duf"]
+["bootandy/dust"]
+["BurntSushi/ripgrep"]
+["dbrgn/tealdeer"]
