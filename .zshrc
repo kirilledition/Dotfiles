@@ -4,6 +4,14 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# PATH exports
+
+export PATH="$HOME/.local/bin:$PATH"
+
+if [[ "$(hostname)" == "abraxas" ]]; then
+  export PATH="/home/kirill/Software:$PATH"
+fi
+
 # Variables
 EDITOR="micro"
 MICRO_TRUECOLOR="1"
@@ -25,10 +33,13 @@ zinit cdreplay -q
 
 # Zinit plugins
 
-zinit light Aloxaf/fzf-tab
-zinit light zdharma-continuum/fast-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
+# Turbo Mode (Lazy Loading)
+zinit wait lucid light-mode for \
+  Aloxaf/fzf-tab \
+  zdharma-continuum/fast-syntax-highlighting \
+  zsh-users/zsh-completions \
+  zsh-users/zsh-autosuggestions \
+  hlissner/zsh-autopair
 
 # Command history
 
@@ -58,7 +69,6 @@ export FZF_DEFAULT_OPTS=" \
 --multi"
 
 source ~/.config/aliases.sh
-export PATH="$HOME/.local/bin:$PATH"
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"

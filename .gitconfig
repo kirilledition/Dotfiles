@@ -9,3 +9,17 @@
     helper = !gh auth git-credential
 [core]
     editor = micro
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+    light = false
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default

@@ -16,3 +16,4 @@
 
 # Subdirectories to ignore
 ^nixos
+^legacy

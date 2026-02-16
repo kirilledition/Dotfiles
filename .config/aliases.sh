@@ -3,13 +3,14 @@ alias grep="rg -i"
 alias cp="cp -r"
 
 alias ls="eza"
-alias l="eza -la"
+alias l="eza -laht"
 alias tree="eza --tree"
 
 alias cat="bat"
-alias extract="unar"
+alias extract="ouch decompress"
 alias df="duf"
 alias du="dust -T 0"
+alias find="fd"
 
 backup() {
   # Function to create a backup of a given file.

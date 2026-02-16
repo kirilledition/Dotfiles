@@ -1,5 +1,11 @@
 .config/btop/btop.log
+*.log
 
 *.DS_Store
+*.swp
+*.backup
+*~
+result
 
 nixos/nixos-switch.log
+nixos/result

@@ -10,7 +10,6 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    #      ./tailscale-ssh.nix
   ];
 
   # Bootloader.
@@ -134,55 +133,71 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #  wget
-    micro
+    # GUI Apps
+    inputs.ghostty.packages.x86_64-linux.default
     vscode
-    fastfetch
-    _1password-cli
+    antigravity
     _1password-gui
+    _1password-cli
     obs-studio
-    bat
-    lsd
-    eza
-    ripgrep
-    btop
-    zoxide
-    starship
-    fzf
-    kitty
-    duf
-    dust
-    git
-    stow
-    tailscale
     ticktick
     obsidian
     mpv
     zoom-us
     audacity
-    nodejs_25
-    ffmpeg-full
-    # banana-cursor
-    gh
-    alejandra
     onlyoffice-desktopeditors
     libreoffice-qt
+    google-chrome
+    firefox
+
+    # CLI Replacement Apps - Modern alternatives to base tools
+    uutils-coreutils
+    uutils-findutils
+    uutils-diffutils
+    bat # cat -> bat
+    eza # ls -> eza
+    ripgrep # grep -> rg
+    zoxide # cd -> z
+    duf # df -> duf
+    dust # du -> dust
+    fd # find -> fd
+    tealdeer # man -> tldr
+    ouch # tar/zip -> ouch
+
+    # CLI Additional Utils - Enhancements & Dev Tools
+    git
+    delta # git pager
+    stow
+    fastfetch
+    starship
+    fzf
+    tailscale
+    gh
+    alejandra
+    nvd
+    tokei
+
+    # TUI Utils - Terminal User Interfaces
+    micro # editor
+    btop # resource monitor
+    yazi # file manager
+
+    # Runtimes & Libraries
+    nodejs_25
+    ffmpeg-full
     hunspell
     hunspellDicts.ru_RU
     hunspellDicts.en_US
-    tealdeer
-    google-chrome
-    firefox
-    inputs.ghostty.packages.x86_64-linux.default
-    antigravity
-    nvd
   ];
   nixpkgs.overlays = [
     (final: prev: {
       btop = prev.btop.override {
         cudaSupport = true;
       };
+      # Use uutils instead of GNU coreutils
+      coreutils = prev.uutils-coreutils.override { prefix = ""; };
+      findutils = prev.uutils-findutils.override { prefix = ""; };
+      diffutils = prev.uutils-diffutils.override { prefix = ""; };
     })
   ];
   programs.thunderbird.enable = true;
@@ -267,13 +282,6 @@
       IdentityAgent ~/.1password/agent.sock
     '';
   };
-
-  # console = {
-  #   earlySetup = true;
-  #   font = "${pkgs.terminus_font}/share/consolefonts/ter-132n.psf.gz";
-  #   packages = with pkgs; [terminus_font];
-  #   keyMap = "us";
-  # };
 
   catppuccin = {
     enable = true;
