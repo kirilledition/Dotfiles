@@ -3,14 +3,23 @@ alias grep="rg -i"
 alias cp="cp -r"
 
 alias ls="eza"
-alias l="eza -laht"
+alias l="eza -lah --sort newest"
 alias tree="eza --tree"
 
 alias cat="bat"
-alias extract="ouch decompress"
 alias df="duf"
 alias du="dust -T 0"
 alias find="fd"
+
+# uutils findutils (find is already aliased to fd)
+alias xargs="uutils-xargs"
+alias locate="uutils-locate"
+alias updatedb="uutils-updatedb"
+
+# uutils diffutils
+alias diff="uutils-diff"
+alias cmp="uutils-cmp"
+alias diff3="uutils-diff3" # usually not called directly often, but can be added if needed
 
 backup() {
   # Function to create a backup of a given file.

@@ -151,7 +151,7 @@
     firefox
 
     # CLI Replacement Apps - Modern alternatives to base tools
-    uutils-coreutils
+    uutils-coreutils-noprefix
     uutils-findutils
     uutils-diffutils
     bat # cat -> bat
@@ -162,7 +162,6 @@
     dust # du -> dust
     fd # find -> fd
     tealdeer # man -> tldr
-    ouch # tar/zip -> ouch
 
     # CLI Additional Utils - Enhancements & Dev Tools
     git
@@ -176,6 +175,7 @@
     alejandra
     nvd
     tokei
+    ouch
 
     # TUI Utils - Terminal User Interfaces
     micro # editor
@@ -195,9 +195,9 @@
         cudaSupport = true;
       };
       # Use uutils instead of GNU coreutils
-      coreutils = prev.uutils-coreutils.override { prefix = ""; };
-      findutils = prev.uutils-findutils.override { prefix = ""; };
-      diffutils = prev.uutils-diffutils.override { prefix = ""; };
+      # coreutils = prev.uutils-coreutils-noprefix;
+      # findutils = prev.uutils-findutils.override {prefix = "";};
+      # diffutils = prev.uutils-diffutils.override {prefix = "";};
     })
   ];
   programs.thunderbird.enable = true;
