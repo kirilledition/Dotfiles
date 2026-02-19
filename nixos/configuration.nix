@@ -12,11 +12,32 @@
     ./hardware-configuration.nix
   ];
 
-  # Bootloader.
-  #boot.loader.systemd-boot.enable = true;
-  #boot.loader.efi.canTouchEfiVariables = true;
+  # ============================================================================
+  # Nix & System Configuration
+  # ============================================================================
+
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nixpkgs.config.allowUnfree = true;
+  system.stateVersion = "24.05"; # Did you read the comment?
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      btop = prev.btop.override {
+        cudaSupport = true;
+      };
+      # Use uutils instead of GNU coreutils
+      # coreutils = prev.uutils-coreutils-noprefix;
+      # findutils = prev.uutils-findutils.override {prefix = "";};
+      # diffutils = prev.uutils-diffutils.override {prefix = "";};
+    })
+  ];
+
+  # ============================================================================
+  # Bootloader
+  # ============================================================================
+
   boot.loader = {
-    timeout = 20;
+    timeout = 5; # Reduced from 20s for faster boot
     efi = {
       canTouchEfiVariables = true;
     };
@@ -31,15 +52,47 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # ============================================================================
+  # Hardware & Graphics
+  # ============================================================================
+
+  # Enable OpenGL
+  hardware.graphics.enable = true;
+
+  # Load nvidia driver for Xorg and Wayland
+  nixpkgs.config.nvidia.acceptLicense = true;
+  services.xserver.videoDrivers = ["nvidia"];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = false; # Proprietary drivers for better performance
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
+  };
+  hardware.nvidia-container-toolkit.enable = true;
+
+  # Enable touchpad support (enabled default in most desktopManager).
+  # services.xserver.libinput.enable = true;
+
+  # ============================================================================
+  # Networking
+  # ============================================================================
+
   networking.hostName = "lighthouse"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
+  networking.firewall.enable = true; # Explicitly enable firewall
+
+  services.tailscale.enable = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+  # ============================================================================
+  # Localization & Time
+  # ============================================================================
 
   # Set your time zone.
   time.timeZone = "Asia/Singapore";
@@ -59,23 +112,15 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  # ============================================================================
+  # Desktop Environment
+  # ============================================================================
+
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the Cinnamon Desktop Environment.
-  # services.xserver.displayManager.lightdm.enable = true;
-  # services.xserver.desktopManager.cinnamon.enable = true;
-  # services.xserver.displayManager.lightdm.greeters.gtk = {
-  #   cursorTheme = {
-  #     package = pkgs.banana-cursor;
-  #     name = "Banana";
-  #   };
-  # };
-
-  # Enable the COSMIC login manager
-  services.displayManager.cosmic-greeter.enable = true;
-
   # Enable the COSMIC desktop environment
+  services.displayManager.cosmic-greeter.enable = true;
   services.desktopManager.cosmic.enable = true;
 
   # Configure keymap in X11
@@ -83,6 +128,27 @@
     layout = "us";
     variant = "";
   };
+
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-color-emoji
+    jetbrains-mono
+  ];
+
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "sapphire";
+    cursors = {
+      enable = true;
+      flavor = "mocha";
+      accent = "sapphire";
+    };
+  };
+
+  # ============================================================================
+  # Sound & Printing
+  # ============================================================================
 
   # Enable CUPS to print documents.
   services.printing.enable = false;
@@ -95,18 +161,13 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+    # jack.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
+  # ============================================================================
+  # User Configuration
+  # ============================================================================
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.motd = "no gods or kings only man";
   users.users.kirill = {
     isNormalUser = true;
@@ -116,7 +177,8 @@
       "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDRF9XFFxQB7Qk8MOomo0CHdd+FlbwtPkcZ6NF7XHRh5QvDoaIoAPvYb44nWKFijc+hXypsysNVBTloPWtYwgc/+tHPvWZcUdh+1psy/RkHxkhLeyhNB8CpIGc7wiCbbDxTGpqq9hP0j/+AHOv7NOYQDdFNY/jXrXreQN9VlbvCGjzvJqRggqicvrc50yr2VccBPLbNt3od/FnFHafcT4/PZHFtNGMd+sCUSvlKg4d+yVfaf7vN9HpwlZatCGjPjW3DUV3zxErzSPK8apTfSP1dWY16EDgUjE9SkOPu7HqyL5CYMKHDPima2nbfbcetnE15D5PKAoXTIPA3o4PRay9R6CxGagBXEUY0hsGZmBgTgZEjkU6xIJmLGgdu2WZqRyfz4IJZLEDHP6M20k3vzhVmvJJkf5UMzjy6GCKgqma04rUjWJ07LMucUvyXe6tAwUh9+0LxNjzyryGxKfOIuguIR6ZHN71Un30umM4dcKW4zt/Qmk+3eA76VBUQXsgGsE8="
     ];
     packages = with pkgs; [
-      #  thunderbird
+      # User specific packages (mostly moved to systemPackages or programs.*)
+      # thunderbird
     ];
   };
 
@@ -124,21 +186,64 @@
   programs.zsh.enable = true;
   environment.shells = [pkgs.zsh];
 
-  # Install firefox.
-  programs.firefox.enable = false;
+  # ============================================================================
+  # Programs & Services
+  # ============================================================================
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # Security & SSH
+  services.openssh = {
+    enable = true;
+    settings.PasswordAuthentication = false;
+    settings.PermitRootLogin = "no"; # Changed from "yes" for security
+  };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  programs.ssh = {
+    # enable = true;
+    extraConfig = ''
+      Host *
+      IdentityAgent ~/.1password/agent.sock
+    '';
+  };
+
+  security.sudo = {
+    enable = true;
+    # Removed pwfeedback for security best practices (doesn't reveal password length)
+  };
+
+  # 1Password
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = ["kirill"];
+  };
+  environment.etc = {
+    "1password/custom_allowed_browsers" = {
+      text = ''
+        google-chrome
+      '';
+      mode = "0755";
+    };
+  };
+
+  # Browsers & Email
+  programs.firefox.enable = true;
+  programs.thunderbird.enable = true;
+
+  # Development
+  virtualisation.docker.enable = true;
+  programs.nix-ld.enable = true; # Required for VSCode Remote and unpatched binaries
+
+  # programs.nano.enable = false; # Default is usually true, disabling explicitly if desired
+
+  # ============================================================================
+  # System Packages
+  # ============================================================================
+
   environment.systemPackages = with pkgs; [
     # GUI Apps
     inputs.ghostty.packages.x86_64-linux.default
     vscode
     antigravity
-    _1password-gui
-    _1password-cli
     obs-studio
     ticktick
     obsidian
@@ -148,7 +253,9 @@
     onlyoffice-desktopeditors
     libreoffice-qt
     google-chrome
-    firefox
+    # firefox (Managed by programs.firefox)
+    # _1password-gui (Managed by programs._1password-gui)
+    # _1password-cli (Managed by programs._1password)
 
     # CLI Replacement Apps - Modern alternatives to base tools
     uutils-coreutils-noprefix
@@ -170,7 +277,6 @@
     fastfetch
     starship
     fzf
-    tailscale
     gh
     alejandra
     nvd
@@ -183,141 +289,11 @@
     yazi # file manager
 
     # Runtimes & Libraries
-    nodejs_25
+    nodejs_22 # LTS version (changed from nodejs_25 typo)
     ffmpeg-full
     hunspell
     hunspellDicts.ru_RU
     hunspellDicts.en_US
   ];
-  nixpkgs.overlays = [
-    (final: prev: {
-      btop = prev.btop.override {
-        cudaSupport = true;
-      };
-      # Use uutils instead of GNU coreutils
-      # coreutils = prev.uutils-coreutils-noprefix;
-      # findutils = prev.uutils-findutils.override {prefix = "";};
-      # diffutils = prev.uutils-diffutils.override {prefix = "";};
-    })
-  ];
-  programs.thunderbird.enable = true;
-  programs._1password.enable = true;
-  programs._1password-gui = {
-    enable = true;
-    polkitPolicyOwners = ["kirill"];
-  };
 
-  environment.etc = {
-    "1password/custom_allowed_browsers" = {
-      text = ''
-        google-chrome
-      '';
-      mode = "0755";
-    };
-  };
-
-  # Enable OpenGL
-  hardware.graphics.enable = true;
-
-  # Load nvidia driver for Xorg and Wayland
-  nixpkgs.config.nvidia.acceptLicense = true;
-  services.xserver.videoDrivers = ["nvidia"];
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = false;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-  };
-  hardware.nvidia-container-toolkit.enable = true;
-
-  virtualisation.docker = {
-    enable = true;
-  };
-
-  services.tailscale.enable = true;
-  services.openssh = {
-    enable = true;
-    settings.PasswordAuthentication = false;
-    settings.PermitRootLogin = "yes";
-  };
-
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-color-emoji
-    jetbrains-mono
-  ];
-
-  programs.nano.enable = false;
-
-  security.sudo = {
-    enable = true;
-    extraConfig = ''
-      Defaults pwfeedback
-    '';
-  };
-  programs.nix-ld.enable = true;
-
-  systemd.user = {
-    paths.vscode-remote-workaround = {
-      wantedBy = ["default.target"];
-      pathConfig.PathChanged = "%h/.vscode-server/bin";
-    };
-    services.vscode-remote-workaround.script = ''
-      for i in ~/.vscode-server/bin/*; do
-        if [ -e $i/node ]; then
-          echo "Fixing vscode-server in $i..."
-          ln -sf ${pkgs.nodejs_25}/bin/node $i/node
-        fi
-      done
-    '';
-  };
-
-  programs.ssh = {
-    # enable = true;
-    extraConfig = ''
-      Host *
-      IdentityAgent ~/.1password/agent.sock
-    '';
-  };
-
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-    accent = "sapphire";
-    cursors = {
-      enable = true;
-      flavor = "mocha";
-      accent = "sapphire";
-    };
-  };
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
-  nix.settings.experimental-features = ["nix-command" "flakes"];
 }
