@@ -28,7 +28,21 @@ fi
 # Source/Load Zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+
+# Optimize compinit:
+# If .zcompdump exists and is older than 24 hours, regenerate it (compinit).
+# If it's missing, generate it (compinit).
+# Otherwise (younger than 24h), load it without checks (compinit -C) for speed.
+() {
+  setopt localoptions extendedglob
+  local zcompdump="${ZDOTDIR:-$HOME}/.zcompdump"
+  if [[ -n "$zcompdump"(#qN.mh+24) ]] || [[ ! -f "$zcompdump" ]]; then
+    compinit
+  else
+    compinit -C
+  fi
+}
 zinit cdreplay -q
 
 # Zinit plugins
