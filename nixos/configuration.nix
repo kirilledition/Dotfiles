@@ -241,7 +241,7 @@
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
-    settings.PermitRootLogin = "yes";
+    settings.PermitRootLogin = "no";
   };
 
   fonts.packages = with pkgs; [
