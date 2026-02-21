@@ -241,7 +241,8 @@
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
-    settings.PermitRootLogin = "yes";
+    # Sentinel: Disable root login via SSH to reduce attack surface. Use sudo instead.
+    settings.PermitRootLogin = "no";
   };
 
   fonts.packages = with pkgs; [
