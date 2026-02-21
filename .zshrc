@@ -28,7 +28,18 @@ fi
 # Source/Load Zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+# Optimize compinit by checking if .zcompdump exists and is less than 24 hours old.
+# If so, use -C to skip security checks (faster).
+# We use an anonymous function to locally enable extendedglob for the (#q...) qualifier.
+() {
+  setopt localoptions extendedglob
+  if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+  else
+    compinit -C
+  fi
+}
 zinit cdreplay -q
 
 # Zinit plugins
