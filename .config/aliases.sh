@@ -50,7 +50,16 @@ backup() {
     return 1
   fi
 
-  if mv -- "$file" "$backup_file"; then
+  if [ -e "$backup_file" ]; then
+    printf "Backup '%s' already exists. Overwrite? (y/N) " "$backup_file"
+    read -r response
+    if [[ ! "$response" =~ ^[Yy]$ ]]; then
+      echo "Backup cancelled."
+      return 1
+    fi
+  fi
+
+  if cp -r -- "$file" "$backup_file"; then
     echo "Backup created: '$backup_file'"
     return 0
   else
