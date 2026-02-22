@@ -22,17 +22,17 @@ alias cmp="uutils-cmp"
 alias diff3="uutils-diff3" # usually not called directly often, but can be added if needed
 
 backup() {
-  # Function to create a backup of a given file.
+  # Function to create a backup of a given file or directory.
   #
   # Usage:
   #   backup <filename>
   #
   # Arguments:
-  #   filename: The name of the file to back up.
+  #   filename: The name of the file or directory to back up.
   #
   # Returns:
   #   0  if the backup is created successfully.
-  #   1  if there is an error, such as missing filename argument or the file does not exist.
+  #   1  if there is an error or user aborted.
   #
   # Example:
   #   backup myfile.txt
@@ -50,7 +50,16 @@ backup() {
     return 1
   fi
 
-  if mv -- "$file" "$backup_file"; then
+  if [ -e "$backup_file" ]; then
+    printf "Backup '%s' already exists. Overwrite? [y/N] " "$backup_file"
+    read -r response
+    if [[ ! "$response" =~ ^[yY]$ ]]; then
+      echo "Aborted."
+      return 1
+    fi
+  fi
+
+  if cp -r -- "$file" "$backup_file"; then
     echo "Backup created: '$backup_file'"
     return 0
   else
