@@ -241,7 +241,8 @@
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = false;
-    settings.PermitRootLogin = "yes";
+    # Disable root login for security. Use sudo instead.
+    settings.PermitRootLogin = "no";
   };
 
   fonts.packages = with pkgs; [
