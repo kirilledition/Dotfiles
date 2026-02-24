@@ -147,6 +147,9 @@ rebuild() {
   # Use --color=always so it looks nice even if piping (though we aren't piping here)
   git diff -U0
 
+  printf "\n\033[1;33mPress Enter to continue or Ctrl+C to abort...\033[0m\n"
+  read
+
   echo "Lighthouse Rebuilding..."
   
   # Enable pipefail so that if nixos-rebuild fails, the entire pipe fails
