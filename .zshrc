@@ -28,7 +28,20 @@ fi
 # Source/Load Zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-autoload -Uz compinit && compinit
+# Optimization: Reuse the completion dump file if it's younger than 24 hours.
+autoload -Uz compinit
+() {
+  setopt localoptions extendedglob
+  local -a dump
+  # Check if .zcompdump exists and is older than 24 hours (mh+24).
+  # If it matches, the array will have 1 element.
+  dump=( ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) )
+  if (( $#dump > 0 )); then
+    compinit
+  else
+    compinit -C
+  fi
+}
 zinit cdreplay -q
 
 # Zinit plugins
