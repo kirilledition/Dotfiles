@@ -28,7 +28,16 @@ fi
 # Source/Load Zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+# Optimize compinit: run check only once every 24 hours
+() {
+  setopt localoptions extendedglob
+  if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+  else
+    compinit -C
+  fi
+}
 zinit cdreplay -q
 
 # Zinit plugins
