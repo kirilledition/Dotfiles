@@ -28,7 +28,17 @@ fi
 # Source/Load Zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-autoload -Uz compinit && compinit
+# Optimization: Always run compinit, using -C to reuse a recent dump and skipping security checks when the dump file is newer than 24 hours; otherwise run a full compinit
+autoload -Uz compinit
+() {
+  builtin emulate -L zsh -o extendedglob
+  local _comp_dumpfile="${ZDOTDIR:-$HOME}/.zcompdump"
+  if [[ -e "$_comp_dumpfile" && -z "$_comp_dumpfile"(#qN.mh+24) ]]; then
+     compinit -C
+  else
+     compinit
+  fi
+}
 zinit cdreplay -q
 
 # Zinit plugins
