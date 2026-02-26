@@ -147,8 +147,23 @@ rebuild() {
   # Use --color=always so it looks nice even if piping (though we aren't piping here)
   git diff -U0
 
-  echo "Review changes above. Press Enter to continue, Ctrl+C to abort..."
-  read -r
+  # Confirmation prompt before rebuilding
+  if [ "${REBUILD_ASSUME_YES:-}" != "1" ]; then
+    if [ -t 0 ]; then
+      echo "Review changes above. Press Enter to continue, Ctrl+C to abort..."
+      read -r
+    elif [ -r /dev/tty ]; then
+      echo "Review changes above. Press Enter to continue, Ctrl+C to abort..."
+      # Read from the controlling terminal if stdin is not a TTY
+      read -r < /dev/tty
+    else
+      echo "Error: No interactive TTY available for confirmation. Set REBUILD_ASSUME_YES=1 to skip this prompt in automation." >&2
+      popd &> /dev/null
+      return 1
+    fi
+  else
+    echo "Non-interactive mode: skipping confirmation prompt (REBUILD_ASSUME_YES=1)."
+  fi
 
   echo "Lighthouse Rebuilding..."
   
