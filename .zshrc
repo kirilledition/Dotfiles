@@ -28,7 +28,7 @@ fi
 # Source/Load Zinit
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Optimization: Only run compinit if the dump file is older than 24 hours
+# Optimization: Always run compinit, using -C to reuse a recent dump and skipping security checks when the dump file is newer than 24 hours; otherwise run a full compinit
 autoload -Uz compinit
 () {
   builtin emulate -L zsh -o extendedglob
