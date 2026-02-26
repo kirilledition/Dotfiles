@@ -312,6 +312,24 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+
+  # Prevent suspension and hibernation
+  systemd.targets = {
+    sleep.enable = false;
+    suspend.enable = false;
+    hibernate.enable = false;
+    hybrid-sleep.enable = false;
+  };
+
+  services.logind = {
+    lidSwitch = "ignore";
+    lidSwitchExternalPower = "ignore";
+    extraConfig = ''
+      IdleAction=ignore
+      IdleActionSec=0
+    '';
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
