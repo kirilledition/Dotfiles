@@ -145,7 +145,7 @@ rebuild() {
 
   # Show changes
   # Use --color=always so it looks nice even if piping (though we aren't piping here)
-  git diff -U0
+  git diff --color=always -U0
 
   # Confirmation prompt before rebuilding
   if [ "${REBUILD_ASSUME_YES:-}" != "1" ]; then
