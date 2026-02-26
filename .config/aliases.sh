@@ -165,6 +165,9 @@ rebuild() {
     echo "Non-interactive mode: skipping confirmation prompt (REBUILD_ASSUME_YES=1)."
   fi
 
+  echo -e "\n\033[1;33m?> Review changes above. Press Enter to continue or Ctrl+C to abort...\033[0m"
+  read -r
+
   echo "Lighthouse Rebuilding..."
   
   # Enable pipefail so that if nixos-rebuild fails, the entire pipe fails
