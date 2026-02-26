@@ -50,6 +50,13 @@ backup() {
     return 1
   fi
 
+  if [ -e "$backup_file" ]; then
+    echo "Backup file '$backup_file' already exists."
+    # Appending timestamp to create a unique backup
+    backup_file="${file}.backup_$(date +%Y%m%d_%H%M%S)"
+    echo "Creating backup as '$backup_file' instead."
+  fi
+
   if mv -- "$file" "$backup_file"; then
     echo "Backup created: '$backup_file'"
     return 0
