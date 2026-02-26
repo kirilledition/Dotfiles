@@ -228,3 +228,43 @@ setup_software() {
          echo -e "!! WARNING: '$install_directory' might not be in your persistent PATH.\n   Consider adding this to your shell config:\n   export PATH=\"$install_directory:\$PATH\""
     fi
 }
+_eval_cache() {
+  local cache_dir="${ZDOTDIR:-$HOME}/.cache/zsh"
+  local cmdname="$1"
+  shift
+
+  local cache_file="$cache_dir/${cmdname}_init.zsh"
+  local cmd_path
+  cmd_path=$(command -v "$cmdname") || return
+
+  # Ensure cache directory exists
+  if [[ ! -d "$cache_dir" ]]; then
+    mkdir -p "$cache_dir"
+  fi
+
+  # Check if cache exists and is valid (newer than binary AND path matches)
+  if [[ -f "$cache_file" && "$cache_file" -nt "$cmd_path" ]]; then
+    local cached_path
+    read -r cached_path < "$cache_file"
+    # Remove the comment marker
+    cached_path="${cached_path#\# }"
+
+    if [[ "$cached_path" == "$cmd_path" ]]; then
+      source "$cache_file"
+      return
+    fi
+  fi
+
+  # Generate cache
+  local temp_cache_file="${cache_file}.tmp"
+  echo "# $cmd_path" > "$temp_cache_file"
+
+  if "$cmdname" "$@" >> "$temp_cache_file"; then
+      mv "$temp_cache_file" "$cache_file"
+      source "$cache_file"
+  else
+      rm -f "$temp_cache_file"
+      # Fallback to direct execution on failure
+      "$cmdname" "$@"
+  fi
+}

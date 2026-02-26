@@ -80,6 +80,6 @@ export FZF_DEFAULT_OPTS=" \
 
 source ~/.config/aliases.sh
 # Shell integrations
-eval "$(fzf --zsh)"
-eval "$(starship init zsh)"
-eval "$(zoxide init --cmd cd zsh)"
+_eval_cache fzf --zsh
+_eval_cache starship init zsh
+_eval_cache zoxide init --cmd cd zsh
