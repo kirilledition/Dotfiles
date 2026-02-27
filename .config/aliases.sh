@@ -228,3 +228,26 @@ setup_software() {
          echo -e "!! WARNING: '$install_directory' might not be in your persistent PATH.\n   Consider adding this to your shell config:\n   export PATH=\"$install_directory:\$PATH\""
     fi
 }
+
+_eval_cache() {
+    local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+    mkdir -p "$cache_dir"
+
+    local cmd_name="$1"
+    local cmd_str="$*"
+    # Use string replacement to generate a filename (no external dependencies)
+    local cache_file="$cache_dir/${cmd_str// /_}.zsh"
+
+    # Find the binary path to check its modification time
+    local binary_path
+    binary_path=$(command -v "$cmd_name")
+
+    # Check if cache is valid: exists AND is newer than the binary
+    if [[ -f "$cache_file" && -n "$binary_path" && "$cache_file" -nt "$binary_path" ]]; then
+        source "$cache_file"
+    else
+        # Execute command and save to cache
+        eval "$cmd_str" > "$cache_file"
+        source "$cache_file"
+    fi
+}
