@@ -50,6 +50,14 @@ backup() {
     return 1
   fi
 
+  # If backup exists, use timestamp to prevent overwrite
+  if [ -e "$backup_file" ]; then
+    local timestamp
+    timestamp=$(date +%Y%m%d_%H%M%S)
+    backup_file="${file}_${timestamp}.backup"
+    echo "Backup file exists, creating timestamped backup: $backup_file"
+  fi
+
   if mv -- "$file" "$backup_file"; then
     echo "Backup created: '$backup_file'"
     return 0
