@@ -212,7 +212,14 @@ setup_software() {
     if [[ ! -f "$eget_binary" ]]; then
         echo "-> Installing eget..."
         pushd "$install_directory" > /dev/null
-        curl https://zyedidia.github.io/eget.sh | sh
+        local script_file
+        script_file=$(mktemp)
+        if curl --proto '=https' --tlsv1.2 -sSf https://zyedidia.github.io/eget.sh -o "$script_file"; then
+             sh "$script_file"
+        else
+             echo "Error: Failed to download eget install script."
+        fi
+        rm -f "$script_file"
         popd > /dev/null
     fi
 
