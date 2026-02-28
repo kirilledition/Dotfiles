@@ -202,6 +202,33 @@ rebuild() {
   return 0
 }
 
+_eval_cache() {
+  # Caches output of slow commands like `starship init zsh` or `zoxide init zsh`.
+  # This avoids spinning up new processes for them during Zsh startup.
+  local cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+  [[ -d "$cache_dir" ]] || mkdir -p "$cache_dir"
+
+  local cmd="$1"
+  local cache_key="$*"
+  # Replace non-alphanumeric characters with underscores
+  local cache_file="$cache_dir/${cache_key//[^a-zA-Z0-9]/_}.zsh"
+
+  local bin_path
+  bin_path="$(command -v "$cmd" 2>/dev/null)"
+
+  # Check if binary exists and is executable. In some cases (like builtin echo), it might not be a file path.
+  if [[ -n "$bin_path" && -x "$bin_path" && -f "$bin_path" ]]; then
+    # Invalidate cache if it's missing, empty, or older than the binary
+    if [[ ! -s "$cache_file" || "$bin_path" -nt "$cache_file" ]]; then
+      "$@" > "$cache_file"
+    fi
+    source "$cache_file"
+  else
+    # Fallback if binary is not found or not executable (e.g. builtins)
+    eval "$("$@")"
+  fi
+}
+
 setup_software() {
     local install_directory="$HOME/Software"
     local eget_binary="$install_directory/eget"
