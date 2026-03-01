@@ -146,7 +146,7 @@
     zoom-us
     audacity
     onlyoffice-desktopeditors
-    libreoffice-qt
+    # libreoffice-qt
     google-chrome
     firefox
 
@@ -185,9 +185,9 @@
     # Runtimes & Libraries
     nodejs_25
     ffmpeg-full
-    hunspell
-    hunspellDicts.ru_RU
-    hunspellDicts.en_US
+    # hunspell
+    # hunspellDicts.ru_RU
+    # hunspellDicts.en_US
   ];
   nixpkgs.overlays = [
     (final: prev: {
@@ -312,7 +312,6 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-
   # Prevent suspension and hibernation
   systemd.targets = {
     sleep.enable = false;
@@ -324,10 +323,10 @@
   services.logind = {
     lidSwitch = "ignore";
     lidSwitchExternalPower = "ignore";
-    extraConfig = ''
-      IdleAction=ignore
-      IdleActionSec=0
-    '';
+    settings.Login = {
+      IdleAction = "ignore";
+      IdleActionSec = 0;
+    };
   };
 
   # This value determines the NixOS release from which the default
