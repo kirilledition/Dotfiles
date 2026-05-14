@@ -12,8 +12,15 @@ fi
 
 export PATH="$HOME/.local/bin:$PATH"
 
-if [[ "$(hostname)" == "abraxas" ]]; then
+if [[ "$(hostname)" == "gauss" ]]; then
   export PATH="/home/kirill/Software:$PATH"
+
+  # The next line updates PATH for the Google Cloud SDK.
+  if [ -f '/mnt/beegfs/kirill/Software/google-cloud-sdk/path.zsh.inc' ]; then . '/mnt/beegfs/kirill/Software/google-cloud-sdk/path.zsh.inc'; fi
+
+  # The next line enables shell command completion for gcloud.
+  if [ -f '/mnt/beegfs/kirill/Software/google-cloud-sdk/completion.zsh.inc' ]; then . '/mnt/beegfs/kirill/Software/google-cloud-sdk/completion.zsh.inc'; fi
+
 fi
 
 # Variables
@@ -87,3 +94,7 @@ source ~/.config/aliases.sh
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+export PATH="/home/kirill/.pixi/bin:$PATH"
+
+# opencode
+export PATH=/home/kirill/.opencode/bin:$PATH
