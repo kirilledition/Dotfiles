@@ -3,9 +3,11 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
   # If you're using macOS, you'll want this enabled
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+  if [[ ! -s "$NVM_DIR/nvm.sh" ]]; then
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+fi
+
 fi
 
 # PATH exports
@@ -14,12 +16,17 @@ export PATH="$HOME/.local/bin:$PATH"
 
 if [[ "$(hostname)" == "gauss" ]]; then
   export PATH="/home/kirill/Software:$PATH"
+  export PATH="/home/kirill/.pixi/bin:$PATH"
+  export PATH=/home/kirill/.opencode/bin:$PATH
 
   # The next line updates PATH for the Google Cloud SDK.
-  if [ -f '/mnt/beegfs/kirill/Software/google-cloud-sdk/path.zsh.inc' ]; then . '/mnt/beegfs/kirill/Software/google-cloud-sdk/path.zsh.inc'; fi
+  # if [ -f '/mnt/beegfs/kirill/Software/google-cloud-sdk/path.zsh.inc' ]; then . '/mnt/beegfs/kirill/Software/google-cloud-sdk/path.zsh.inc'; fi
+  # if [ -f '/mnt/beegfs/kirill/Software/google-cloud-sdk/completion.zsh.inc' ]; then . '/mnt/beegfs/kirill/Software/google-cloud-sdk/completion.zsh.inc'; fi
 
-  # The next line enables shell command completion for gcloud.
-  if [ -f '/mnt/beegfs/kirill/Software/google-cloud-sdk/completion.zsh.inc' ]; then . '/mnt/beegfs/kirill/Software/google-cloud-sdk/completion.zsh.inc'; fi
+  # NVM
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 fi
 
@@ -94,7 +101,3 @@ source ~/.config/aliases.sh
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-export PATH="/home/kirill/.pixi/bin:$PATH"
-
-# opencode
-export PATH=/home/kirill/.opencode/bin:$PATH
