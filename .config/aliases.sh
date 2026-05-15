@@ -150,10 +150,10 @@ rebuild() {
   # Confirmation prompt before rebuilding
   if [ "${REBUILD_ASSUME_YES:-}" != "1" ]; then
     if [ -t 0 ]; then
-      echo "Review changes above. Press Enter to continue, Ctrl+C to abort..."
+      echo -e "\033[1;33mReview changes above. Press Enter to continue, Ctrl+C to abort...\033[0m"
       read -r
     elif [ -r /dev/tty ]; then
-      echo "Review changes above. Press Enter to continue, Ctrl+C to abort..."
+      echo -e "\033[1;33mReview changes above. Press Enter to continue, Ctrl+C to abort...\033[0m"
       # Read from the controlling terminal if stdin is not a TTY
       read -r < /dev/tty
     else
